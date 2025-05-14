@@ -1,6 +1,4 @@
-﻿using System.Net.Mail;
-
-namespace ATBASH_cipher
+﻿namespace ATBASH_cipher
 {
     class Program
     {
