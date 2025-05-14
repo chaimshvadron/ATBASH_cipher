@@ -6,7 +6,6 @@ namespace ATBASH_cipher
     {
         static void Main()
         {
-            PrintFinally(5, "jninmxim");
         }
 
         static void PrintFinally(int conter, string str)
@@ -28,7 +27,7 @@ namespace ATBASH_cipher
 
             if (conter > 0)
             {
-                MssageFinallY = $"   {warning}\n{str}\n{conter}the suspect words";
+                MssageFinallY = $"{warning}\n{str}\n{conter}the suspect words";
             }
             else
             {
