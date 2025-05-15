@@ -1,38 +1,51 @@
 ﻿namespace ATBASH_cipher
 {
-    class Program()
+    class Program
     {
         static void Main()
         {
-            PrintFinally(CountDangerousWords(EliDecrypt("Lfi ulixvh ziv kivkzirmt uli z nzqli zggzxp lm gsv Arlmrhg vmvnb." +
-                "\nGsv ilxpvg fmrgh ziv ivzwb zmw dzrgrmt uli gsv hrtmzo.\r\nYlnyh szev yvvm kozxvw mvzi pvb olxzgrlmh." +
-                "\nMfpsyz urtsgvih ziv hgzmwrmt yb uli tilfmw rmurogizgrlm.\r\nGsv zggzxp droo yv hfwwvm zmw hgilmt -- gsvb dlm’g hvv rg xlnrmt." +
-                "\nDv nfhg hgzb srwwvm zmw pvvk gsv kozm hvxivg fmgro gsv ozhg nlnvmg.\r\nErxglib rh mvzi. Hgzb ivzwb.")),EliDecrypt("Lfi ulixvh ziv kivkzirmt uli z nzqli zggzxp lm gsv Arlmrhg vmvnb." +
-                "\nGsv ilxpvg fmrgh ziv ivzwb zmw dzrgrmt uli gsv hrtmzo.\r\nYlnyh szev yvvm kozxvw mvzi pvb olxzgrlmh.\r\nMfpsyz urtsgvih ziv hgzmwrmt yb uli tilfmw rmurogizgrlm." +
-                "\nGsv zggzxp droo yv hfwwvm zmw hgilmt -- gsvb dlm’g hvv rg xlnrmt.\r\nDv nfhg hgzb srwwvm zmw pvvk gsv kozm hvxivg fmgro gsv ozhg nlnvmg.\r\nErxglib rh mvzi. Hgzb ivzwb."));
+            string encrypted =
+                "Lfi ulixvh ziv kivkzirmt uli z nzqli zggzxp lm gsv Arlmrhg vmvnb.\n" +
+                "Gsv ilxpvg fmrgh ziv ivzwb zmw dzrgrmt uli gsv hrtmzo.\r\n" +
+                "Ylnyh szev yvvm kozxvw mvzi pvb olxzgrlmh.\n" +
+                "Mfpsyz urtsgvih ziv hgzmwrmt yb uli tilfmw rmurogizgrlm.\r\n" +
+                "Gsv zggzxp droo yv hfwwvm zmw hgilmt -- gsvb dlm’g hvv rg xlnrmt.\n" +
+                "Dv nfhg hgzb srwwvm zmw pvvk gsv kozm hvxivg fmgro gsv ozhg nlnvmg.\r\n" +
+                "Erxglib rh mvzi. Hgzb ivzwb.";
+
+            string decrypted = EliDecrypt(encrypted);
+            int points = CountDangerousWords(decrypted);
+            PrintFinally(points, decrypted);
         }
 
-        static int CountDangerousWords(string deciphered)
+
+        static int CountDangerousWords(string text)
         {
             int count = 0;
-            string[] decipheredWord = deciphered.Split(" ");
-            string[] dangerousWords = new string[] {"bomb", "nukhba", "fighter", "rocket", "secret" };
-            foreach (string word in dangerousWords)
+            string word = "";
+            string[] dangers = { "bomb", "nukhba", "fighter", "rocket", "secret" };
+            text = text.ToLower();
+
+            foreach (char c in text + " ")
             {
-                foreach (string item in decipheredWord)
+                if (char.IsLetter(c))
+                    word += c;
+                else if (word != "")
                 {
-                    if (item.ToLower() == word)
-                    {
-                        count++;
-                    }
+                    foreach (string d in dangers)
+                        if (word == d) count++;
+                    word = "";
                 }
             }
+
             return count;
         }
 
+
+
         static string EliDecrypt(string strEncrypt)
         {
-            Dictionary<char,string> keyLetter = new Dictionary<char,string>()
+            Dictionary<char, string> keyLetter = new Dictionary<char, string>()
             {
                 ['a'] = "z",
                 ['b'] = "y",
